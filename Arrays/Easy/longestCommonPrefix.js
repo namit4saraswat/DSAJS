@@ -2,15 +2,17 @@
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
-    const n = strs.length;
-    let i=0;
-    while(i<n-1){
-        let strs1 = strs[i].replace(strs[i+1],'');
-        if(strs1.length == strs[i].length){
-            return "";
+var longestCommonPrefix = function(arr) {
+    let i = 1;
+    let prf = arr[0];
+    while(i < arr.length){
+        if(!arr[i].startsWith(prf)){
+            prf = prf.slice(0, -1)
         }else{
-            i++;
+            i++
         }
     }
+    return prf
 };
+
+console.log(longestCommonPrefix(["flower","flow","flight"]));
