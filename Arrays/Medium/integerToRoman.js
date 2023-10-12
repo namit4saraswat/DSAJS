@@ -3,9 +3,6 @@
  * @return {string}
  */
 
-
-
-
 var intToRoman = function(num) {
     let ans2 = "";
     let convert = function(x){
@@ -21,7 +18,7 @@ var intToRoman = function(num) {
         }
         if(x>=100 && x<500){
             if(x=== 400){
-                return { val1: 0, val2: 'DC'}
+                return { val1: 0, val2: 'CD'}
             }
             return {val1: x-100, val2: 'C'};
         }
@@ -53,14 +50,17 @@ var intToRoman = function(num) {
 
 
     let convertUnit = function(unit){
+        if(unit === 0){
+            return ans2
+        }
         op2 = convert(unit);
         if(op2.val1 === 0){
             ans2 =  ans2 + op2.val2;
-            return ans2;
-        }else{
+            }else{
             ans2 =  ans2 + op2.val2;
             convertUnit(op2.val1);
-        }
+            }
+            return ans2;
     }
 
     let result = "";
@@ -69,7 +69,7 @@ var intToRoman = function(num) {
     let base = Math.pow(10,n);
     while(i<n){
         let unit = parseInt(num.toString().charAt(i));
-        result = convertUnit(unit * base * 0.1) + result;
+        result = convertUnit(unit * base * 0.1);
         base = base /10;
         i++;
     }
@@ -77,4 +77,4 @@ var intToRoman = function(num) {
 };
 
 
-console.log("Converting " + intToRoman(3476));
+console.log("Converting " + intToRoman(400));
