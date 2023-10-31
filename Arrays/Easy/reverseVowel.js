@@ -4,7 +4,6 @@
  */
 var reverseVowels = function(s) {
     const n = s.length;
-    console.log(typeof(s[1]))
     let isVowel = function(c){
         switch (c) {
             case 'a':
@@ -18,22 +17,29 @@ var reverseVowels = function(s) {
         }
            
     }
-    let j = n-1;
-    for(let i=0;i<n;i++){
-        if(isVowel(s[i].toLowerCase())){
-            while(!isVowel(s[j].toLowerCase())){
-                j--;
-            }
-            if(i>=j){
-                return s;
-            }else{
-                s = s.substring(0,i) + s[j] + s.substring(i+1,j) + s[i] + s.substring(j+1,n);
-                j--;
-            }
+
+    s = s.split("");
+    let i=0;
+    let j=n-1;
+    while(i<j){
+        if((isVowel(s[i].toLowerCase())) && (isVowel(s[j].toLowerCase()))){
+            let temp = s[i];
+            s[i] = s[j];
+            s[j] = temp;
+            i++;
+            j--;
+        }
+
+        if(!isVowel(s[i].toLowerCase())){
+            i++;
+        }
+        if(!isVowel(s[j].toLowerCase())){
+            j--;
         }
     }
 
-    return s;
+    return s.join("");
+
 };
 
-console.log(reverseVowels('aA'))
+console.log(reverseVowels('hello'))
