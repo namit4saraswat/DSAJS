@@ -80,6 +80,7 @@ class LinkedList {
     }
 
     deleteMiddleNode(){
+        /*
         let map = new Map();
         let current = this.head;
         let count = 0;
@@ -90,6 +91,23 @@ class LinkedList {
         }
         let middle =  Math.floor(count/2);
         map.get(middle-1).next = map.get(middle+1);
+        */
+
+        //Approach 2
+        let slow = this.head;
+        let fast = this.head;
+        let prev = null;
+
+        while(fast && fast.next){
+            prev = slow;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        if(prev){
+        prev.next = slow.next;
+        }else{
+            head = slow.next;
+        }
     }
 
     //get at index
@@ -115,10 +133,10 @@ class LinkedList {
 
 const ll = new LinkedList();
 ll.insertFirst(500);
-ll.insertFirst(400)
-ll.insertFirst(300)
-ll.insertFirst(200)
-ll.insertFirst(100)
+// ll.insertFirst(400)
+// ll.insertFirst(300)
+// ll.insertFirst(200)
+// ll.insertFirst(100)
 ll.printListData();
 ll.deleteMiddleNode();
 ll.printListData();
