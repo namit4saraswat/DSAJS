@@ -3,7 +3,6 @@
  * @return {} Do not return anything, modify board in-place instead.
  */
 
-const { default: Link } = require("next/link");
 
 //10 --> 16 --> 20
 class Node {
@@ -55,6 +54,44 @@ class LinkedList {
         this.size++;
     }
 
+    reverseList = function() {
+        let current = this.head;
+        let prev = current;
+        let revCurr = current.next;
+        current = current.next.next;
+        prev.next = null;
+        while(current){
+            revCurr.next = prev;
+            prev = revCurr;
+            revCurr = current;
+            current = current.next;
+        }
+        revCurr.next = prev;
+    };
+
+    getLength(){
+        let current = this.head;
+        let count = 0;
+        while(current){
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
+
+    deleteMiddleNode(){
+        let map = new Map();
+        let current = this.head;
+        let count = 0;
+        while(current){
+            map.set(count, current);
+            count++;
+            current = current.next;
+        }
+        let middle =  Math.floor(count/2);
+        map.get(middle-1).next = map.get(middle+1);
+    }
+
     //get at index
     
     //remove at index
@@ -71,17 +108,17 @@ class LinkedList {
         }
         console.log('size: ' + this.size)
         console.log('**************')
+        console.log(this.head);
     }
 
 }
 
 const ll = new LinkedList();
-ll.insertFirst(100);
-ll.insertFirst(200)
+ll.insertFirst(500);
+ll.insertFirst(400)
 ll.insertFirst(300)
-ll.insertFirst(500)
-ll.insertFirst(600)
-ll.insertLast(400)
+ll.insertFirst(200)
+ll.insertFirst(100)
 ll.printListData();
-ll.insertAtIndex(350,6)
+ll.deleteMiddleNode();
 ll.printListData();
