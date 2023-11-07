@@ -110,6 +110,32 @@ class LinkedList {
         }
     }
 
+    maxTwinSum(){
+        let slow = this.head;
+        let fast = this.head;
+        let prev = null;
+        let map = new Map();
+        let max = Number.NEGATIVE_INFINITY
+        let count = -1;
+        let temp = null;
+
+        while(fast && fast.next){
+            fast = fast.next.next
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+        }
+
+        while(prev.next){
+            prev = prev.next;
+            max = Math.max(max,prev.data + map.get(count));
+            count--;
+        }
+
+        console.log(max);
+    }
+
     //get at index
     
     //remove at index
@@ -132,11 +158,10 @@ class LinkedList {
 }
 
 const ll = new LinkedList();
-ll.insertFirst(500);
-// ll.insertFirst(400)
-// ll.insertFirst(300)
-// ll.insertFirst(200)
-// ll.insertFirst(100)
-ll.printListData();
-ll.deleteMiddleNode();
-ll.printListData();
+// ll.insertFirst(600)
+// ll.insertFirst(500);
+ll.insertFirst(4)
+ll.insertFirst(3)
+ll.insertFirst(2)
+ll.insertFirst(1)
+ll.maxTwinSum();
