@@ -136,6 +136,25 @@ class LinkedList {
         console.log(max);
     }
 
+    oddEvenPair(){
+        if(this.head == null){
+            console.log('asjhjk')
+            return
+        }
+        let odd = this.head;
+        let even = this.head.next;
+        let temp = even;
+
+        while(odd.next && even.next){
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+
+        odd.next = temp;
+    }
+
     //get at index
     
     //remove at index
@@ -160,8 +179,13 @@ class LinkedList {
 const ll = new LinkedList();
 // ll.insertFirst(600)
 // ll.insertFirst(500);
-ll.insertFirst(4)
-ll.insertFirst(3)
-ll.insertFirst(2)
-ll.insertFirst(1)
-ll.maxTwinSum();
+// ll.insertFirst(7)
+// ll.insertFirst(6)
+// ll.insertFirst(5)
+// ll.insertFirst(4)
+// ll.insertFirst(3)
+// ll.insertFirst(2)
+// ll.insertFirst(1)
+ll.printListData();
+ll.oddEvenPair();
+ll.printListData();
