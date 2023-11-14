@@ -10,13 +10,28 @@
  * @return {ListNode}
  */
 var reverseList = function(head) {
-    current = head;
-    while(current.next){
-        prev = current;
-        current = curren.next;
-        revCurr = current;
+    if(head == null || head.next == null){
+        return head
+    }
+    if(head.next.next == null){
+        let revCurr = head.next;
+        revCurr.next = head;
+        head.next = null
+        return revCurr
+    }
+    let current = this.head;
+    let prev = current;
+    let revCurr = current.next;
+    current = current.next.next;
+    prev.next = null;
+    while(current){
+        revCurr.next = prev;
+        prev = revCurr;
+        revCurr = current; 
+        current = current.next;
         revCurr.next = prev;
     }
+    return revCurr
 };
 
 console.log(reverseList())
