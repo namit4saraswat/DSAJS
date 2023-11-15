@@ -369,6 +369,42 @@ class LinkedList {
     //clear list
 
     //print list
+
+    partition(x){
+        let current = this.head
+        let less= null
+        let more = null
+        let moreHead = null
+        let lessHead = null
+        while(current){
+            if(current.data<x){
+                if(!less){
+                    less = new Node(current.data, null)
+                    lessHead = less
+                    current = current.next
+                    continue
+                }
+                less.next = current
+                less = less.next
+            }else{
+                if(!more){
+                    more = new Node(current.data, null)
+                    moreHead = more
+                    current = current.next
+                    continue
+                }
+                more.next = current
+                more = more.next
+            }
+            current = current.next
+        }
+        if(more){more.next = null}
+        if(less){less.next = moreHead}else{
+            lessHead = moreHead
+        }
+        this.head = lessHead
+    }
+
     printListData(){
         let current = this.head;
         console.log('**************')
@@ -386,13 +422,13 @@ class LinkedList {
 
 const ll = new LinkedList();
 // ll.insertLast(1)
-// ll.insertLast(2)
 // ll.insertLast(3)
 // ll.insertLast(4)
-// ll.insertLast(5)
-// ll.insertLast(5)
+// ll.insertLast(2)
+// ll.insertLast(3)
+// ll.insertLast(2)
 // ll.insertLast(5)
 // ll.insertLast(6)
 // ll.printListData()
-ll.rotateList(4);
+ll.partition(0);
 ll.printListData()
