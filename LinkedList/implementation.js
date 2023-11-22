@@ -405,6 +405,28 @@ class LinkedList {
         this.head = lessHead
     }
 
+    isPalindrome() {
+        let current = this.head
+        let arr = [];
+        while(current){
+            arr.push(current.data)
+            current = current.next
+        }
+        let i=0;
+        let l = arr.length
+        let recurPalind = function(arr, s, e){
+            if(s>=e){
+                return true
+            }
+            if(arr[s]!=arr[e] ){
+                return false
+            }
+            return recurPalind(arr,s+1, e-1)
+        }
+        return recurPalind(arr,i, l-1)
+        
+    };
+
     printListData(){
         let current = this.head;
         console.log('**************')
@@ -421,14 +443,14 @@ class LinkedList {
 
 
 const ll = new LinkedList();
+ll.insertLast(1)
+ll.insertLast(2)
+// ll.insertLast(3)
 // ll.insertLast(1)
 // ll.insertLast(3)
-// ll.insertLast(4)
-// ll.insertLast(2)
-// ll.insertLast(3)
-// ll.insertLast(2)
+// ll.insertLast(1)
 // ll.insertLast(5)
 // ll.insertLast(6)
 // ll.printListData()
-ll.partition(0);
-ll.printListData()
+console.log(ll.isPalindrome());
+// ll.printListData()
