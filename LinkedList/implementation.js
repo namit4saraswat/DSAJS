@@ -427,6 +427,20 @@ class LinkedList {
         
     };
 
+    removeGreaterNodes(){
+        let current = this.head
+        let max = current.data
+        while(current && current.next){
+            if(current.data < current.next.data){
+                if(current.next.data > this.head.data){
+                    this.head = current.next
+                }
+            }else{
+                current = current.next
+            }
+        }
+    }
+
     printListData(){
         let current = this.head;
         console.log('**************')
@@ -443,14 +457,14 @@ class LinkedList {
 
 
 const ll = new LinkedList();
-ll.insertLast(1)
+ll.insertLast(5)
 ll.insertLast(2)
-// ll.insertLast(3)
-// ll.insertLast(1)
-// ll.insertLast(3)
+ll.insertLast(13)
+ll.insertLast(3)
+ll.insertLast(8)
 // ll.insertLast(1)
 // ll.insertLast(5)
 // ll.insertLast(6)
 // ll.printListData()
-console.log(ll.isPalindrome());
-// ll.printListData()
+console.log(ll.removeGreaterNodes());
+ll.printListData()
