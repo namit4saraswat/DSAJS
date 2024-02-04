@@ -13,23 +13,25 @@ var merge = function (nums1, m, nums2, n) {
     if (nums1.length === 0) {
         return nums1 = nums2;
     }
-    while (i <= m && j <= n) {
-        if (nums1[m - i] >= nums2[n - j]) {
-            nums1[m + n - count] = nums1[m - i];
-            i++;
-        } else {
-            nums1[m + n - count] = nums2[n - j];
-            j++;
+    
+    while(i<=m && j<=n){
+        if(nums1[m-i]<nums2[n-j]){
+            nums1[m+n-count] = nums2[n-j]
+            j++
+        }else{
+            nums1[m+n-count] = nums1[m-i]
+            i++
         }
         count++;
     }
 
-    while (j <= n) {
-        nums1[m + n - count] = nums2[n - j];
-        j++;
-        count++;
+    while(j<=n){
+        nums1[m+n-count] = nums2[n-j] 
+        j++
+        count++
     }
+
     return nums1;
 };
 
-console.log("ans is " + merge([2, 4, 6, 0, 0, 0,0], 3, [1, 3, 5, 7], 4));
+console.log("ans is " + merge([7,8,9,0,0,0], 3, [2,5,6], 3));

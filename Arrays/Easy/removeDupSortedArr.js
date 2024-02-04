@@ -3,20 +3,20 @@
  * @return {number}
  */
 var removeDuplicates = function(nums) {
-    const res= Array.from(new Set(nums))
-    nums.unshift(...res);
+    // const res= Array.from(new Set(nums))
+    // nums.unshift(...res);
+    // console.log(nums)
+    let i=1;
+    let j = 1;
+    while(i<nums.length){
+        if(nums[i] != nums[i-1]){
+            nums[j] = nums[i];
+            j++;
+        }
+        i++;
+    }
     console.log(nums)
-    // let i=1;
-    // let j = 1;
-    // while(i<nums.length){
-    //     if(nums[i] != nums[i-1]){
-    //         nums[j] = nums[i];
-    //         j++;
-    //     }
-    //     i++;
-    // }
-
-    // return j;
+    return j;
     
 };
 
