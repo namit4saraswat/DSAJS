@@ -1,6 +1,12 @@
-let temp = Array(11).fill(-1)
-var divisorGame = function(N){
-    
+let alice = false
+var divisorGame = function(n){
+    if(n===1){
+        return alice
+    }
+    alice = !alice
+
+    divisorGame(n-1)
+
 }
 
-console.log(divisorGame(3))
+console.log(divisorGame(n))
