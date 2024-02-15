@@ -1,10 +1,17 @@
 var sumTriangular = function(mat, N){
     let uSum=0
     let lSum=0
-    for(let i=0;i<=N-1;i++){
-        for(let j=i;j<=N-1;j++){
+    for(let i=0,j=0;i<=N-1;){
+        if(i<=j){
             uSum = uSum + mat[i][j]
-            lSum = lSum + mat[N-i-1][N-1-j]
+        }
+        if(i>=j){
+            lSum = lSum + mat[i][j]
+        }
+        j++
+        if(j===N-1){
+            i++
+            j=0
         }
     }
 
