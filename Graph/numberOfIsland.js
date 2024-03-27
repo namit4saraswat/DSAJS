@@ -34,7 +34,7 @@ var numIslands = function (grid) {
     let ans = 0
 
     for (let i = 0; i < n; i++) {
-        for (let j = 0; i < m; j++) {
+        for (let j = 0; j < m; j++) {
             if (grid[i][j] === '1') {
                 ans++
                 numIslandRec(i, j, n, m, grid)
