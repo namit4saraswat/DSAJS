@@ -20,6 +20,17 @@ class LinkedList {
         this.size = 0;
     }
 
+    createLinkedList1(nums){
+        for(let i=0;i<nums.length;i++){
+            this.head1 = new Node(nums[i], this.head1)
+        }
+    }
+
+    createLinkedList2(nums){
+        for(let i=0;i<nums.length;i++){
+            this.head2 = new Node(nums[i], this.head2)
+        }
+    }
     //Insert First Node
     insertFirst(data){
         this.head = new Node(data, this.head)
@@ -236,29 +247,31 @@ class LinkedList {
     addTwoNumbers(){
         let list1 = this.head1;
         let list2 = this.head2;
-        let num1 = 0;
-        let count = 1;
-        let num2 = 0;
-        while(list1){
-            num1 = BigInt('' + list1.data * (count) + num1)
-            count = count * 10
-            list1 = list1.next;
+        let carryOver=0
+        let unitSum = 0
+        let head3 = new Node()
+        this.head = head3
+        while(list1 || list2){
+            unitSum=carryOver
+            if(list1){
+                unitSum =list1.data + carryOver
+                list1=list1.next
+            }
+            if(list2){
+                unitSum= unitSum + list2.data
+                list2=list2.next
+            }
+            unitSum = unitSum%10
+            carryOver = Math.floor(unitSum/10)
+            
+            head3.next = new Node(unitSum)
+            head3 = head3.next
         }
-        count =1;
-        while(list2){
-            num2 = BigInt('' + list2.data * (count) + num2)
-            count = count * 10
-            list2 = list2.next;
+        if(carryOver===1){
+            head3.next = new Node(carryOver)
         }
-        let sum = num1 + num2;
-        sum = sum.toString();
-        let len = sum.length;
-        let i=0;
-        while(len>0){
-            this.head = new Node(parseInt(sum[i]), this.head)
-            len--;
-            i++;
-        }
+        this.head = this.head.next
+
         
     }
 
@@ -457,14 +470,9 @@ class LinkedList {
 
 
 const ll = new LinkedList();
-ll.insertLast(5)
-ll.insertLast(2)
-ll.insertLast(13)
-ll.insertLast(3)
-ll.insertLast(8)
-// ll.insertLast(1)
-// ll.insertLast(5)
-// ll.insertLast(6)
-// ll.printListData()
-console.log(ll.removeGreaterNodes());
+// ll.insertFirst1(1)
+
+ll.createLinkedList1([9,9,8,9,9,9,9])
+ll.createLinkedList2([9,9,9,9])
+ll.addTwoNumbers()
 ll.printListData()

@@ -1,23 +1,15 @@
-var transpose = function(matr){
+var transpose = function(matrix){
     let j=0
-    for(let i=0;i<matr.length;){
-        if(i!=j){
-            let temp = matr[i][j]
-            matr[i][j] = matr[j][i]
-            matr[j][i] = temp
-        }
+    let newMatrix = [...Array(matrix[0].length)].map(_=>Array(matrix.length)) 
+    for(let i=0;i<matrix.length;){
+        newMatrix[j][i] = matrix[i][j]
         j++
-        if(j===matr.length){
+        if(j===matrix[0].length){
+            j=0
             i++
-            j=i
         }
     }
-
-    return matr
+    return newMatrix
 }
 
-console.log(transpose([[1,1,1,1],
-    [2,2,2,2],
-    [3,3,3,3],
-    [4,4,4,4]
-]))
+console.log(transpose([[1,2]]))

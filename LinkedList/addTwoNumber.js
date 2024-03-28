@@ -18,26 +18,23 @@ Explanation: 342 + 465 = 807.
 var addTwoNumbers = function (l1, l2) {
     let carryOver = 0
     let unitSum = 0
-    let head3 = new ListNode()
-    let head = head3
-    head = head3
-    while (l1 || l2) {
-        if (l1) unitSum = l1.data + carryOver
-        if (l2) unitSum = unitSum + l2.data
-        if (unitSum > 9) {
-            unitSum = unitSum - 10
-            carryOver = 1
-        } else {
-            carryOver = 0
+    let dummy = new ListNode()
+    let res = dummy
+    while (l1 || l2 || carryOver) {
+        unitSum = carryOver
+        if (l1) {
+            unitSum = l1.val + unitSum
+            l1 = l1.next
         }
-        head3.next = new ListNode(unitSum)
-        head3 = head3.next
-        if (l1) l1 = l1.next
-        if (l2) l2 = l2.next
+        if (l2) {
+            unitSum = unitSum + l2.val
+            l2 = l2.next
+        }
+        let num = unitSum % 10
+        carryOver = Math.floor(unitSum / 10)
+
+        dummy.next = new ListNode(num)
+        dummy = dummy.next
     }
-    if (carryOver === 1) {
-        head3.next = new Node(carryOver)
-    }
-    head = head.next
-    return head
+    return res.next
 };
