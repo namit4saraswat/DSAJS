@@ -1,26 +1,25 @@
 /**
  * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
  * }
  */
-
 /**
  * @param {ListNode} head
- * @return {boolean}
+ * @return {ListNode}
  */
-var hasCycle = function(head) {
-    let slow=head
-    let fast=head
-    while(fast && fast.next){
-        slow = slow.next
-        fast=fast.next.next
-        if(slow===fast){
-            return true
-        }
-        
+var deleteDuplicates = function(head) {
+    if(!head || !head.next){
+        return head
     }
-    return false
-
+    let current = head
+    while(current && current.next){
+        if(current.val === current.next.val){
+            current.next=current.next.next
+        }else{
+            current = current.next
+        }
+    }
+    return head
 };
