@@ -18,26 +18,26 @@ var validPath = function(n, edges, source, destination) {
     }
 
     let queued = []
-        let visited = new Array(Object.keys(adjacencyList).length).fill(false);
+    let visited = new Array(Object.keys(adjacencyList).length).fill(false);
 
-        visited[source] = true
-        queued.push(source)
-
-        while(queued.length!=0){
-            const currentNode =  queued.shift()
-            
-
-            for(const neighbor of adjacencyList[currentNode]){
-                if(!visited[neighbor]){
-                    visited[neighbor]=true
-                    queued.push(neighbor)
-                }
+    visited[source] = true
+    queued.push(source)
+    while(queued.length!=0){
+        let currentNode = queued.shift()
+        for(let nums of adjacencyList[currentNode]){
+            if(nums===destination){
+                return true
+            }
+            if(!visited[nums]){
+                visited[nums]=true
+                queued.push(nums)
             }
         }
-       
-        
+    }
 
-    return visited[destination]
+    return false
+    
 };
 
-console.log(validPath(6,[[0,1],[0,2],[3,5],[5,4],[4,3]], 0,5))
+
+console.log(validPath(3,[[0,1],[1,2],[2,0]],0,2))
