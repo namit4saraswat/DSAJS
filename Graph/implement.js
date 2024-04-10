@@ -50,6 +50,27 @@ class Graph {
         }
     }
 
+    shortPathUtil(source) {
+        let queued = []
+        let visited = new Array(Object.keys(this.adjacencyList).length).fill(false);
+        let distance = new Array(Object.keys(this.adjacencyList).length).fill(0);
+        visited[source] = true
+        queued.push(source)
+        distance[source]=0
+        while(queued.length!=0){
+            let currentNode = queued.shift()
+            for(let nums of this.adjacencyList[currentNode]){
+                if(!visited[nums]){
+                    distance[nums]=distance[currentNode]+1
+                    visited[nums]=true
+                    queued.push(nums)
+                }
+            }
+        }
+        
+        return distance
+    }
+
     dfsTraversal(source) {
         let visited = new Array(Object.keys(this.adjacencyList).length).fill(false);
         this.dfsUtil(source, visited)
@@ -91,6 +112,7 @@ class Graph {
 
     isCyclicUtilDirected(source,visited,dfsVisited){
         visited[source] =true
+        dfsVisited[source]=true
         for (let i of this.adjacencyList[source].values()) {
             
             if (!visited[i]) {
@@ -98,12 +120,14 @@ class Graph {
                     return true
                 }
             }else{
-                if(dfsVisited[i]===false){
+                if(dfsVisited[i]){
                     return true
                 }
+                
+                
             }
         }
-        dfsVisited[source]=true
+        dfsVisited[source]=false
         return false
 
     }
@@ -113,7 +137,7 @@ class Graph {
         let dfsVisited = new Array(Object.keys(this.adjacencyList).length).fill(false);
         for(let i = 0; i < visited.length; i++){
             if(visited[i] === false){
-                if(this.isCyclicUtilDirected(i, visited,dfsVisited) === true){
+                if(this.isCyclicUtilDirected(i, visited, dfsVisited) === true){
                     return true;
                 }
             }
@@ -181,6 +205,11 @@ class Graph {
 
         
     }
+
+    shortestPath(source){
+        return(this.shortPathUtil(source))
+        
+    }
     
     printGraph(){
         console.log(this.adjacencyList)
@@ -193,21 +222,21 @@ obj.addVertex(0)
 obj.addVertex(1)
 obj.addVertex(2)
 obj.addVertex(3)
-obj.addVertex(4)
-obj.addVertex(5)
-obj.addVertex(6)
-obj.addVertex(7)
-obj.addEdgeDirected(0,1)
-obj.addEdgeDirected(1,2)
-obj.addEdgeDirected(2,3)
-obj.addEdgeDirected(4,3)
-obj.addEdgeDirected(1,4)
-obj.addEdgeDirected(5,0)
-obj.addEdgeDirected(5,6)
-obj.addEdgeDirected(6,7)
-obj.addEdgeDirected(5,7)
+// obj.addVertex(4)
+// obj.addVertex(5)
+// obj.addVertex(6)
+// obj.addVertex(7)
+obj.addEdge(0,1)
+// obj.addEdge(1,3)
+obj.addEdge(0,3)
+obj.addEdge(3,2)
+// obj.addEdgeDirected(1,4)
+// obj.addEdgeDirected(5,0)
+// obj.addEdgeDirected(5,6)
+// obj.addEdgeDirected(6,7)
+// obj.addEdgeDirected(5,7)
 // obj.addEdgeDirected(4,3)
 // obj.addEdgeDirected(1,4)
-console.log(obj.isCyclicDirected())
+console.log(obj.shortestPath(0))
 // obj.printGraph()
 // obj.dfsTraversal(5)
