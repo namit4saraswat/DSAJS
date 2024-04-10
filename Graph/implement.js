@@ -1,10 +1,13 @@
 class Graph {
     constructor() {
         this.adjacencyList = {}
+        this.queue = []
+        this.map = new Map()
     }
 
     addVertex(vertex) {
         if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+        this.map.set(vertex,0)
     }
 
     addEdge(u, v) {
@@ -13,6 +16,7 @@ class Graph {
     }
 
     addEdgeDirected(u, v) {
+        this.map.set(v,this.map.get(v)+1)
         this.adjacencyList[u].push(v)
     }
 
@@ -56,13 +60,12 @@ class Graph {
         visited[source] =true
         for (let i of this.adjacencyList[source].values()) {
             
-            let n = i
-            if (!visited[n]) {
-                if(this.isCyclicUtil(n, visited,source) ===true){
+            if (!visited[i]) {
+                if(this.isCyclicUtil(i, visited,source) ===true){
                     return true
                 }
             }else{
-                if(source!=parent){
+                if(i!=parent){
                     return true
                 }
             }
@@ -75,15 +78,49 @@ class Graph {
     isCyclic(){
         let visited = new Array(Object.keys(this.adjacencyList).length).fill(false);
         for(let i = 0; i < visited.length; i++){
-            // Don't recur for u if it
-            // is already visited
-            if(visited[i] == false){
+            if(visited[i] === false){
                 if(this.isCyclicUtil(i, visited, -1) === true){
                     return true;
                 }
             }
                  
         }
+
+        return false
+    }
+
+    isCyclicUtilDirected(source,visited,dfsVisited){
+        visited[source] =true
+        for (let i of this.adjacencyList[source].values()) {
+            
+            if (!visited[i]) {
+                if(this.isCyclicUtilDirected(i, visited,dfsVisited) ===true){
+                    return true
+                }
+            }else{
+                if(dfsVisited[i]===false){
+                    return true
+                }
+            }
+        }
+        dfsVisited[source]=true
+        return false
+
+    }
+
+    isCyclicDirected(){
+        let visited = new Array(Object.keys(this.adjacencyList).length).fill(false);
+        let dfsVisited = new Array(Object.keys(this.adjacencyList).length).fill(false);
+        for(let i = 0; i < visited.length; i++){
+            if(visited[i] === false){
+                if(this.isCyclicUtilDirected(i, visited,dfsVisited) === true){
+                    return true;
+                }
+            }
+                 
+        }
+
+        return false
     }
 
     topologicalSortUtil(source, visited, stack){
@@ -112,6 +149,38 @@ class Graph {
         console.log(stack.pop() + " ");
     }
     }
+
+    queueUpdate(){
+        for(let num of this.map.keys()){
+            if(this.map.get(num)===0){
+                this.queue.push(num)
+            }
+        }
+    }
+    
+    
+    queueTopological(){
+        this.queueUpdate()
+        let visited = new Array(Object.keys(this.adjacencyList).length).fill(false);
+        
+
+        while(this.queue.length!=0){
+            let u = this.queue.shift()
+            console.log(u)
+
+            for(let num of this.adjacencyList[u].values()){
+                if(!visited[num]){
+                    this.map.set(num,this.map.get(num)-1)
+                    if(this.map.get(num)===0){
+                        this.queue.push(num)
+                    }
+                }
+            }
+
+        }
+
+        
+    }
     
     printGraph(){
         console.log(this.adjacencyList)
@@ -126,12 +195,19 @@ obj.addVertex(2)
 obj.addVertex(3)
 obj.addVertex(4)
 obj.addVertex(5)
-obj.addEdgeDirected(5,1)
-obj.addEdgeDirected(5,2)
-obj.addEdgeDirected(1,3)
+obj.addVertex(6)
+obj.addVertex(7)
+obj.addEdgeDirected(0,1)
+obj.addEdgeDirected(1,2)
 obj.addEdgeDirected(2,3)
-obj.addEdgeDirected(0,4)
-obj.addEdgeDirected(0,3)
+obj.addEdgeDirected(4,3)
+obj.addEdgeDirected(1,4)
+obj.addEdgeDirected(5,0)
+obj.addEdgeDirected(5,6)
+obj.addEdgeDirected(6,7)
+obj.addEdgeDirected(5,7)
+// obj.addEdgeDirected(4,3)
+// obj.addEdgeDirected(1,4)
+console.log(obj.isCyclicDirected())
 // obj.printGraph()
 // obj.dfsTraversal(5)
-obj.topologicalSort(5)
