@@ -6,38 +6,38 @@
  * @return {boolean}
  */
 var validPath = function(n, edges, source, destination) {
-    let adjacencyList = {}
-    while(n>=1){
-        adjacencyList[n-1]=[]
-        n--       
-    }
-
+    let adjList = {}
+    let visited = new Array(n).fill(false)
+    
     for(let i=0;i<edges.length;i++){
-        adjacencyList[edges[i][0]].push(edges[i][1])
-        adjacencyList[edges[i][1]].push(edges[i][0])
+        if(!adjList[edges[i][0]]){
+            adjList[edges[i][0]]=[]
+        }
+        if(!adjList[edges[i][1]]){
+            adjList[edges[i][1]]=[]
+        }
+        adjList[edges[i][0]].push(edges[i][1])
+        adjList[edges[i][1]].push(edges[i][0])
     }
 
-    let queued = []
-    let visited = new Array(Object.keys(adjacencyList).length).fill(false);
-
-    visited[source] = true
-    queued.push(source)
-    while(queued.length!=0){
-        let currentNode = queued.shift()
-        for(let nums of adjacencyList[currentNode]){
-            if(nums===destination){
-                return true
-            }
-            if(!visited[nums]){
-                visited[nums]=true
-                queued.push(nums)
+    let queue=[]
+    queue.push(source)
+    while(queue.length!=0){
+        let currentNode=queue.shift()
+            for(let num of adjList[currentNode]){
+                if(num===destination){
+                    return true
+                }
+                if(!visited[num]){
+                    visited[num]=true
+                    queue.push(num)
+                }
+                
             }
         }
-    }
-
-    return false
+        
     
+    return false
 };
 
-
-console.log(validPath(3,[[0,1],[1,2],[2,0]],0,2))
+console.log(validPath(10,[[4,3],[1,4],[4,8],[1,7],[6,4],[4,2],[7,4],[4,0],[0,9],[5,4]],5,9))
