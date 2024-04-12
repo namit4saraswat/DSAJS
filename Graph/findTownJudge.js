@@ -4,20 +4,20 @@
  * @return {number}
  */
 var findJudge = function(n, trust) {
+    let trustArr = new Array(n+1).fill(0)
 
-    let trustArray = new Array(n).fill(0)
     for(let i=0;i<trust.length;i++){
-        trustArray[trust[i][0]-1]--
-        trustArray[trust[i][1]-1]++
+        trustArr[trust[i][0]]--
+        trustArr[trust[i][1]]++
     }
-    
-    for(let i=0;i<trustArray.length;i++){
-        if (trustArray[i] === n-1){
-            return i+1
+
+    for(let num of trustArr){
+        if(num===n-1){
+            return true
         }
     }
 
-    return -1
+    return false
 
 };
 
