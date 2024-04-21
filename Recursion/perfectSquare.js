@@ -1,16 +1,19 @@
-let count=1
-var perfectSquare = function(n) {
-    if(Math.floor(Math.sqrt(n)) === Math.sqrt(n)){
-        return count
+
+let i=12
+function perfectSquare(num){
+    if(num===0){
+        return 0
     }
-
-    n=n-1
-    if(Math.floor(Math.sqrt(n-1)) === Math.sqrt(n-1)){
-        
-    }else{
-
+    if(num<=3){
+        return num
     }
-    return perfectSquare(n) = 1+ Math.min(perfectSquare(n-1))
-};
+    
+    for(let i=1;i*i<num;i++){
+        let sq = i*i
+        return Math.min(1 + perfectSquare(num-sq))
+    }
+    
+}
 
-console.log(perfectSquare(12))
+
+console.log(perfectSquare(14))

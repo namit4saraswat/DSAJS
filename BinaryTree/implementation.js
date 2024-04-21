@@ -24,6 +24,10 @@ class Tree {
 
     }
 
+    buildTree(nums){
+
+    }
+
     insertNode(node, newNode){
         if(node.data > newNode.data){
             if(node.left == null){
@@ -83,24 +87,33 @@ class Tree {
         }
     }
 
-    //DFS
-    maxDepth2(node){
-        
-    }
-
-    //BFS
-    maxDepth2(node){
-        
-    }
+    levelOrder(root) {
+        if(!root){
+            return
+        }
+        let queue=[]
+        queue.push(root[0])
+        while(queue.length>0){
+            let size=queue.length
+            while(size>0)
+            {
+                let node = queue.shift()
+                console.log(node)
+                if(node.left){
+                    queue.push(node.left)
+                }
+                if(node.right){
+                queue.push(node.right)
+                }
+                size--
+            }
+        }
+    };
 
 }
 
+
 const bt = new Tree();
-bt.insert(3)
-bt.insert(9)
-bt.insert(20)
-bt.insert(null)
-bt.insert(null)
-bt.insert(15)
-bt.insert(7)
-console.log(bt.maxDepth(bt.root))
+bt.buildTree(){
+    
+}

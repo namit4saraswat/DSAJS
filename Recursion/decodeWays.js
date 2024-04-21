@@ -1,19 +1,28 @@
-var getCharcter = function(num){
-    return String.fromCharCode(parseInt(num)+64)
-}
 
-let count=0
-var numDecodings = function(s, pos) {
-    if(pos===s.length-1){
-        return 1
-    }
-    if(pos===s.length-2){
-        return 2
-    }
-    if((s.length===2 || s.length===1) && (parseInt(s)>26 || s[0]===1)) {
-        return 0
-    }
-    return numDecodings(s,pos+1) + numDecodings(s,pos+2) 
+let map = new Map()
+
+
+var numDecodings = function(s) {
     
+    let n = s.length+1
+    let dp = Array(n).fill(0)
+    dp[0]=1
+    dp[1]= s[0]===0 ? 0 : 1
+
+    for(let i=2;i<=n;i++){
+        let oneDigit =  parseInt(s[i-1])
+        let twoDigits = parseInt(s[i-2]+ s[i-1])
+
+        if(oneDigit>=1){
+            dp[i] =dp[i] + dp[i-1]
+        }
+        if(twoDigits<=26 && twoDigits>=10){
+            dp[i] = dp[i] + dp[i-2]
+        }
+    }
+
+    return dp[n-1]
 };
-console.log(numDecodings('127',0))
+
+
+console.log(numDecodings('05'))
