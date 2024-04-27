@@ -28,19 +28,27 @@ function buildTree(nums){
     }
     return root
 }
+    function height(node,ans){
+        if(!node){
+            return 0
+        }
 
-function findHeight(node){
-    if(!node){
-        return 0
+        let l=height(node.left,ans)
+        let r=height(node.right,ans)
+
+        ans[0] = Math.max(ans[0],l+r)
+
+        return 1 + Math.max(l,r)
     }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
-    
-    return 1+ Math.max(l,r)
+    function diameterOfBinaryTree(node){
+        if(!node){
+            return 0
+        }
+        ans=[0]
+        height(node,ans)
+        
+        return ans[0]
+    }
 
-}
-
-
-
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+let root = buildTree([1,2,3,4,5])
+console.log(diameterOfBinaryTree(root))

@@ -6,7 +6,6 @@ class Node {
         
     }
 }
-
 function buildTree(nums){
     if(nums.length===0){
         return
@@ -28,19 +27,22 @@ function buildTree(nums){
     }
     return root
 }
-
-function findHeight(node){
+let set = new Set()
+function widthHelper(node, min){
     if(!node){
-        return 0
+        return
     }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
     
-    return 1+ Math.max(l,r)
-
+    set.add(min)
+    widthHelper(node.left, min-1)
+    widthHelper(node.right, min+1)
+    
 }
 
+function width(root){
+    widthHelper(root,0)
+    return (set.size)
+}
 
-
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+let root = buildTree([1,2,3,4,5,6,7,8])
+console.log(width(root))

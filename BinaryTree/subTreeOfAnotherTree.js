@@ -6,7 +6,6 @@ class Node {
         
     }
 }
-
 function buildTree(nums){
     if(nums.length===0){
         return
@@ -29,18 +28,34 @@ function buildTree(nums){
     return root
 }
 
-function findHeight(node){
-    if(!node){
-        return 0
-    }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
-    
-    return 1+ Math.max(l,r)
 
+var isSameTree = function(p, q) {
+    if (!p || !q){
+        return p===q
+    }
+    
+    return p.data ===q.data && isSameTree(p.left,q.left) && isSameTree(p.right,q.right) 
+    
+
+};
+
+function isSubtree(root,subroot){
+    if(!root){
+        return false
+    }
+    if(!subroot){
+        return true
+    }
+
+    if(isSameTree(root,subroot)){
+        return  true
+    }
+
+    return  isSubtree(root.left,subroot) || isSubtree(root.right,subroot)
 }
 
+let root = buildTree([3,4,5,1,2])
+let subroot = buildTree([4,1,2,1])
+console.log(isSubtree(root,subroot))
 
 
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))

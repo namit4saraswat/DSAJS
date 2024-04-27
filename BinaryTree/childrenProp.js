@@ -31,20 +31,20 @@ function buildTree(nums){
 
 
 let sum=0
-function childrenSum(node){
-    if(!node || (!node.left && !node.right)){
-        return true 
+function checkTree(root){
+    if(!root || (!root.left && !root.right)){
+        return  true
     }
 
     let l=0
     let r=0
-    if(node.left){
-        l=node.left.data
+    if(root.left){
+        l=root.left.data
     }
-    if(node.right){
-        r=node.right.data
+    if(root.right){
+        r=root.right.data
     }
-    if(node.data=== r + l && childrenSum(node.left) && childrenSum(node.right)){
+    if(root.data=== r + l && checkTree(root.left) && checkTree(root.right)){
         return true
     }else{
         return false
@@ -52,5 +52,5 @@ function childrenSum(node){
     
 }
 
-let p = buildTree([10,8,2,3,2,2])
-console.log(childrenSum(p))
+let p = buildTree([10,4,6])
+console.log(checkTree(p))

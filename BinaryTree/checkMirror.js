@@ -29,18 +29,27 @@ function buildTree(nums){
     return root
 }
 
-function findHeight(node){
-    if(!node){
-        return 0
+var isSameTree = function(p, q) {
+    if (!p || !q){
+        return p===q
     }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
     
-    return 1+ Math.max(l,r)
+    return p.data ===q.data && isSameTree(p.left,q.right) && isSameTree(p.right,q.left) 
+    
 
+};
+
+function isSymmetric(root){
+    if(!root){
+        return true
+    }
+    if(isSameTree(root.left,root.right)){
+        return  true
+    }
+    return false
 }
 
 
 
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+let root = buildTree([1,2,2,4,5,4,5])
+console.log(isSymmetric(root))

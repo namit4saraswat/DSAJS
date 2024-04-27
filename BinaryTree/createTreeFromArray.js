@@ -76,21 +76,22 @@ function postOrder(node){
     console.log(node.data)
 }
 
-function levelOrderPrint(node){
-    let q = [node]
-    console.log(node.data)
-    while(q.length>0){
-        let curr = q.shift()
-        if(curr.left){
-            console.log(curr.left.data)
-            q.push(curr.left)
-        }
-        if(curr.right){
-            console.log(curr.right.data)
-            q.push(curr.right)
-        }
-    }
-    }
+// function levelOrderPrint(node){
+//     let q = [node]
+//     console.log(node.data)
+//     while(q.length>0){
+//         let curr = q.shift()
+//         if(curr.left){
+//             console.log(curr.left.data)
+//             q.push(curr.left)
+//         }
+//         if(curr.right){
+//             console.log(curr.right.data)
+//             q.push(curr.right)
+//         }
+//     }
+//     }
+
 
 function iterativePreOrder(root){
     let q=[root]
@@ -133,6 +134,5 @@ function iterativePostOrder(){
     let 
 }
 
-let root = buildTree([1,null,2,3])
-inOrderPrint(root)
-console.log(ans)
+let root = buildTree([1,2,3,4,5,6,7])
+levelOrderPrint()

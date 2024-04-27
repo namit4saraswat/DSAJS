@@ -1,12 +1,11 @@
 class Node {
-    constructor(data, left, right){
-        this.data = data
+    constructor(val, left, right){
+        this.val = val
         this.left = left
         this.right = right
         
     }
 }
-
 function buildTree(nums){
     if(nums.length===0){
         return
@@ -29,18 +28,17 @@ function buildTree(nums){
     return root
 }
 
-function findHeight(node){
-    if(!node){
-        return 0
+function LCA(root,p,q){
+    while(root){
+        if(p<root.val && q<root.val){
+            root=root.left
+        }else if(p>root.val && q>root.val){
+            root=root.right
+        } else{
+            return root.val
+        }
     }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
-    
-    return 1+ Math.max(l,r)
-
 }
 
-
-
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+let root = buildTree([6,2,8,0,4,7,9,null,null,3,5])
+console.log(LCA(root,2,4))

@@ -35,21 +35,18 @@ function buildTree(nums){
 
 var levelOrder = function(root) {
     if(!root){
-        return []
+        return
     }
-    let ans=[]
+    let ans=[[]]
     let data=[]
     let queue=[]
     queue.push(root)
     while(queue.length>0){
         let size=queue.length
-         while(size>0)
+        while(size>0)
         {
             let node = queue.shift()
-            if(node.data!=null){
-                data.push(node.data)
-            }
-            
+            data.push(node.val)
             if(node.left!=null){
                 queue.push(node.left)
             }
@@ -59,11 +56,11 @@ var levelOrder = function(root) {
             
             size--
         }
-        ans.push(data)
+        ans[count]=data[data.length-1]
         data=[]
     }
     return ans
 };
 
-let root = buildTree([])
+let root = buildTree([1,2,3,4,5,6,7,8,9,10])
 console.log(levelOrder(root))

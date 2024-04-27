@@ -29,18 +29,20 @@ function buildTree(nums){
     return root
 }
 
-function findHeight(node){
-    if(!node){
-        return 0
+function invertTree(node){
+    if(!node || !(node.left || node.right)){
+        return null
     }
-    let l = findHeight(node.left)
-    let r = findHeight(node.right)
-    
-    return 1+ Math.max(l,r)
 
+    let temp = node.right
+    node.right=node.left
+    node.left=temp
+
+    invertTree(node.left)
+    invertTree(node.right)
+    return root
 }
 
-
-
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+let root = buildTree([1,2,3,4,5,6,7,8,9])
+console.log(invertTree(root))
+console.log('')

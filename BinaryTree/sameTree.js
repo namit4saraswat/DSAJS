@@ -29,6 +29,7 @@ function buildTree(nums){
     return root
 }
 var flag=true
+
 var isSameTree = function(p, q) {
     if (!p || !q){
         return p===q
@@ -40,5 +41,5 @@ var isSameTree = function(p, q) {
 };
 
 let p = buildTree([1,2,3])
-let q= buildTree([1,2])
+let q= buildTree([1,2,3])
 console.log(isSameTree(p,q))
