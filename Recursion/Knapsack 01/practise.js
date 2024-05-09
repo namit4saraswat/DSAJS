@@ -58,9 +58,36 @@ function numberSubSeqSum(nums, i,tSum){
         } 
     }
     
-    let l= numberSubSeqSum(nums,i+1,tSum-nums[i])
-    let r = numberSubSeqSum(nums,i+1,tSum)
-    return l+r
+    return numberSubSeqSum(nums,i+1,tSum-nums[i]) +  numberSubSeqSum(nums,i+1,tSum)
     
 }
-console.log(numberSubSeqSum([1,2,3],0,3))
+
+//all subsets
+function allSubset(nums, i,ans){
+    if(i===nums.length){
+        return
+    }
+    ans.push(nums[i])
+    console.log(ans)
+    allSubset(nums,i+1,ans)
+    ans.pop(nums[i])
+    allSubset(nums,i+1,ans)
+}
+
+//all subset with sum
+function allSubsetWithSum(nums, i,ans,sum){
+    if(sum===0){
+        console.log(ans)
+    }
+    if(sum<0 || i===nums.length){
+        return
+    }
+    ans.push(nums[i])
+    allSubsetWithSum(nums,i+1,ans,sum-nums[i])
+    ans.pop()
+    allSubsetWithSum(nums,i+1,ans,sum)
+}
+
+
+
+console.log(allSubsetWithSum([1,2,3],0,[],3))

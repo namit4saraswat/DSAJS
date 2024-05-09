@@ -41,6 +41,20 @@ function findHeight(node){
 }
 
 
+function findHeight1(node,ans,tmp){
+    if(!node){      
+        ans[0]=Math.max(ans[0],tmp[0])
+        return
+    }
+    tmp[0]++
+    let l = findHeight1(node.left,ans,tmp)
+    tmp[0]--
+    let r = findHeight1(node.right,ans,tmp)
+    
+    return ans
+}
 
-let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10])
-console.log(findHeight(root))
+
+
+let root = buildTree([1, 2, 3, 4, 5, 6,7,8,9,10, 3, 4, 5, 6,7,8,9,10])
+console.log(findHeight1(root,[0],[0]))

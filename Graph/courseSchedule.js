@@ -1,62 +1,22 @@
-/**
- * @param {number} numCourses
- * @param {number[][]} prerequisites
- * @return {boolean}
- */
-
-var isCyclicUtilDirected = function(source,adj,visited,dfsVisited){
-    visited[source] =true
-    dfsVisited[source]=true
-    for (let i of adj[source].values()) {
-        
-        if (!visited[i]) {
-            if(isCyclicUtilDirected(i, adj,visited,dfsVisited) ===true){
+function canFinishUtil(source, visited, dfsVisited) {
+    visited[source] = true
+    for (let nums of prerequisites[source]) {
+        if (!visited[nums]) {
+            if (canFinishUtil(nums, visited, dfsVisited)) {
                 return true
             }
-        }else{
-            if(dfsVisited[i]){
+        } else {
+            if (!dfsVisited[nums]) {
                 return true
             }
         }
     }
-    dfsVisited[source]=false
+    dfsVisited[source] = true
     return false
 }
 
-var canFinish = function(numCourses, prerequisites){
-    let i=numCourses-prerequisites.length
-    let adjacencyList = {}
-    while(numCourses>0){
-        numCourses--
-        adjacencyList[numCourses] = [];
-    }
-    
-    for(let i=0;i<prerequisites.length;i++){
-        if(prerequisites[i].length>0){
-            adjacencyList[prerequisites[i][1]].push(prerequisites[i][0])
-        }
-    } 
-    // while(i>0){
-    //     prerequisites.push([])
-    //     i--
-    // }
-    
-    
-    let visited = new Array(prerequisites.length-1).fill(false);
-    let dfsVisited = new Array(prerequisites.length-1).fill(false);
-    for(let i = 0; i < visited.length; i++){
-        if(visited[i] === false){
-            if(isCyclicUtilDirected(i, adjacencyList, visited,dfsVisited)===true){
-                return false
-            }
-        }
-                
-    }
-    return true
+var canFinish = function (numCourses, prerequisites) {
+    let visited = Array(numCourses).fill(false)
+    let dfsVisited = Array(numCourses).fill(false)
+    canFinishUtil(0, visited, dfsVisited,prerequisites)
 };
-
-
-
-
-
-console.log(canFinish(1,[1]))

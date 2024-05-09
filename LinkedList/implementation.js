@@ -19,7 +19,11 @@ class LinkedList {
         this.head = null;
         this.size = 0;
     }
-
+    createLinkedList(nums){
+        for(let i=0;i<nums.length;i++){
+            this.head = new Node(nums[i], this.head)
+        }
+    }
     createLinkedList1(nums){
         for(let i=0;i<nums.length;i++){
             this.head1 = new Node(nums[i], this.head1)
@@ -108,15 +112,17 @@ class LinkedList {
     }
 
     reverseList() {
-        let prev=null;
-        let curr=this.head;
-        while(curr !== null){
-        const nextNode = curr.next;
-        curr.next=prev;
-        prev= curr;
-        curr=nextNode;
-        }
-        return prev;
+       let stk = []
+       let current = this.head;
+       let current2 = current.next
+       current.next=null
+       while(current2){
+        stk.push(current)
+        current = current2
+        current2 = current.next
+        current.next = stk.pop()
+       }
+       this.head = current
     };
 
     getLength(){
@@ -472,7 +478,8 @@ class LinkedList {
 const ll = new LinkedList();
 // ll.insertFirst1(1)
 
-ll.createLinkedList1([9,9,8,9,9,9,9])
-ll.createLinkedList2([9,9,9,9])
-ll.addTwoNumbers()
+ll.createLinkedList([])
+
+ll.printListData()
+ll.reverseList()
 ll.printListData()

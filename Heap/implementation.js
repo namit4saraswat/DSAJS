@@ -83,6 +83,15 @@ class MinHeap{
         }
     }
 
+    maxheapifyUpIndex(index){
+        while(this.hasParent(index)){
+            if(this.parent(index)<this.heap[index] && this.hasParent(index)){
+                this.swap(index, this.getParentIndex(index))
+            }
+            index = this.getParentIndex(index)
+        }
+    }
+
     getMinimumIndex(idx1, idx2){
         return this.heap[idx1] < this.heap[idx2] ? idx1 : idx2
     }
@@ -95,11 +104,6 @@ class MinHeap{
             index2 = this.getMinimumIndex(this.getLeftChildIndex(index), this.getRightChildIndex(index))
             this.printHeap()
         }   
-    }
-
-    maxHeapify(){
-        let index=0
-        let index2= 
     }
 
     printHeap(){
@@ -131,6 +135,18 @@ class MinHeap{
             this.heapifyUpIndex(i)
         }
     }
+
+    buildMaxHeap2(){
+        let n = this.heap.length-1
+        for(let i=n;i>=0;i--){
+            this.maxheapifyUpIndex(i)
+        }
+    }
+
+    heapSort(){
+        this.buildMaxHeap2
+        for()
+    }
 }
 
 var heap = new MinHeap();
@@ -144,5 +160,5 @@ heap.add(8);
 heap.printHeap();
 // heap.remove()
 // heap.printHeap()
-heap.buildMinHeap()
+heap.buildMaxHeap()
 heap.printHeap()
