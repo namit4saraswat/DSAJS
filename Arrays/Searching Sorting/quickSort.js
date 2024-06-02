@@ -18,16 +18,23 @@ var partition = function(X,l,r){
     return j+1
 }
 
-var quickSort = function(X, l,r){
-    if(l>=r){
-        return
-    }
+var quickSort = function(X, l,r,k){
+    // if(l>=r){
+    //     return
+    // }
     let pIndex = partition(X,l,r)
-    quickSort(X,l,pIndex-1)
-    quickSort(X,pIndex+1,r)
+    if(pIndex===k){
+        return 
+    }
+    if(pIndex>k){
+        quickSort(X,l,pIndex-1,k)
+    }else{
+        quickSort(X,pIndex+1,r,k)
+    }
 
-    return X
+    return X[pIndex]
+
 }
 
 
-console.log(quickSort([12,54,6,2,7,14,15,16],0,7))
+console.log(quickSort([12,54,6,2,7,14,15,16],0,7,3))

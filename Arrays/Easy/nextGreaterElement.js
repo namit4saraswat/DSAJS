@@ -3,19 +3,27 @@
  * @param {number[]} nums2
  * @return {number[]}
  */
-var nextGreaterElement = function(nums1, nums2) {
-    const map = new Map(); // map for next greater element
-    const stack = [];
-    for (let num of nums2) {
-        while (stack.length && stack[stack.length - 1] < num) { // Pop elements from stack and update map with next greater element
-            map.set(stack.pop(), num);
-        }
-        stack.push(num); // Push current element onto stack
-    }
-    for (let i = 0; i < nums1.length; i++) { // Check if each element in nums1 has a next greater element in map
-        nums1[i] = map.has(nums1[i]) ? map.get(nums1[i]) : -1; // Update element in nums1 with next greater element or -1
-    }
-    return nums1;
-};
 
-console.log(nextGreaterElement([4,1,2],[2,1,4,3]))
+
+/*
+Follow below approach for this question
+1. loop from N-1 to 0
+2. Keep adding values to a new stack
+3. 
+
+*/
+function nextGreaterElement(arr,N){
+    let l=arr.length
+    let ans = Array(N).fill(-1)
+    for(let i=N-1;i>=0;i--){
+        if(arr[i-1]<arr[i]){
+            ans[i-1]=arr[i]
+        }else if(arr[i-1]<ans[i]){
+            ans[i-1]=ans[i]
+        }
+    }
+
+    return ans
+}
+
+console.log(nextGreaterElement([10,3,12,4,2,9,13,0,8,11,1,7,5,6],14))

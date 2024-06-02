@@ -8,4 +8,16 @@ function recur(str,i,ans){
     recur(str,i+1,ans)
 }
 
-recur("ABC",0)
+
+function recur2(str,i,ans){
+    if(ans.length===str.length){
+        console.log(ans)
+        return
+    }
+    // ans=str[i]
+    ans = ans + (str[i])
+    recur2(str,i,ans)
+    recur2(str,i,ans)
+}
+
+recur2("ABC",0,'')
