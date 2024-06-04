@@ -3,42 +3,41 @@
  * @return {number[]}
  */
 var spiralOrder = function(matrix) {
-    let number = [];
-    const n = matrix[0].length;
-    const m = matrix.length;
-    let count=0;
-    for(let i=0;i<m;i++){
-        for(let j=i;j<n-i;j++){
-            number.push(matrix[i][j]);
+    const result = []
+    const rows = matrix.length
+    const cols = matrix[0].length
+
+    let left = 0
+    let right = cols - 1
+    let top = 0
+    let bottom = rows - 1
+
+    while (result.length < rows* cols){
+
+        for (let col = left; col <=right; col++){
+            result.push(matrix[top][col])
         }
-        count++;
-        if(count>= (Math.min(m,n))*2){
-            break;
+        top++
+
+        for (let row = top; row <= bottom; row++){
+            result.push(matrix[row][right])
         }
-        for(let j=i+1;j<m-i;j++){
-            number.push(matrix[j][n-i-1]);
+        right--
+
+        for (let col = right; col >= left; col--){
+            if (result.length < rows*cols){
+                result.push(matrix[bottom][col])
+            }
         }
-        count++;
-        if(count>= (Math.min(m,n))*2){
-            break;
+        bottom--
+
+        for (let row = bottom; row >= top; row--){
+            if (result.length < rows*cols){
+                result.push(matrix[row][left])
+            }
         }
-        for(let j=n-i-2;j>=i;j--){
-            number.push(matrix[m-i-1][j]);
-        }
-        count++;
-        if(count>= (Math.min(m,n))*2){
-            break;
-        }
-        for(let j=i+1;j<m-i-1;j++){
-            number.push(matrix[m-j-1][i])
-        }
-        count++;
-        if(count>= (Math.min(m,n))*2){
-            break;
-        }
+        left++
     }
-
-    return number;
+    return result
+    
 };
-
-console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]));
