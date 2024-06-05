@@ -130,9 +130,29 @@ function iterativeInorder(root){
     }
 }
 
-function iterativePostOrder(){
-    let 
+function createTree(nums){
+    let root = new Node(nums[0])
+    let curr
+    let q = []
+    let i=0
+    q.push(root)
+    while(q.length>0){
+        size = q.length
+        while(size>0){
+            curr = q.shift()
+            curr.left = new Node(nums[++i])
+            if(curr.left.data){q.push(curr.left)}
+            curr.right = new Node(nums[++i])
+            if(curr.right.data){q.push(curr.right)}
+            size--
+        }
+    }
+
+    return root
 }
 
-let root = buildTree([1,2,3,4,5,6,7])
-levelOrderPrint()
+let root = createTree([1,2,3,4,5,6,7,8])
+console.log(1)
+
+
+module.export(createTree)
