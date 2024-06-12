@@ -44,5 +44,5 @@ function width(root){
     return (set.size)
 }
 
-let root = buildTree([1,2,3,4,5,6,7,8])
+let root = buildTree([1,2,3,4,5])
 console.log(width(root))

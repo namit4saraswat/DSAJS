@@ -67,3 +67,5 @@ var levelOrder = function(root) {
 
 let root = buildTree([])
 console.log(levelOrder(root))
+
+module.exports = {levelOrder}

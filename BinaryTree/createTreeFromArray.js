@@ -152,7 +152,6 @@ function createTree(nums){
 }
 
 let root = createTree([1,2,3,4,5,6,7,8])
-console.log(1)
 
 
-module.export(createTree)
+module.exports = {createTree}
