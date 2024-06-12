@@ -1,54 +1,21 @@
-class Node {
-    constructor(data, left, right){
-        this.data = data
-        this.left = left
-        this.right = right
-        
-    }
-}
+const  {createTree} =  require ("./createTreeFromArray")
 
-function buildTree(nums){
-    if(nums.length===0){
-        return
-    }
-    let root = new Node(nums[0])
-    let q = [root]
-    let i=1
-    while(i<nums.length){
-        let curr = q.shift()
-        if (i < nums.length){
-            curr.left = new Node(nums[i++])
-            q.push(curr.left)
-        }
-        if (i < nums.length){
-            curr.right = new Node(nums[i++])
-            q.push(curr.right)
-        }
-        
-    }
-    return root
-}
-    function height(node,ans){
-        if(!node){
+const diameterOfBinaryTree = function(root) {
+    let dia = 0
+    function dfs(root){
+        if(!root.data){
             return 0
         }
+        const l = dfs(root.left)
+        const r = dfs(root.right)
 
-        let l=height(node.left,ans)
-        let r=height(node.right,ans)
-
-        ans[0] = Math.max(ans[0],l+r)
-
-        return 1 + Math.max(l,r)
+        dia = Math.max(dia,l+r)
+        return Math.max(l,r) + 1
     }
-    function diameterOfBinaryTree(node){
-        if(!node){
-            return 0
-        }
-        ans=[0]
-        height(node,ans)
-        
-        return ans[0]
-    }
+    dfs(root)
+    return dia
 
-let root = buildTree([1,2,3,4,5])
+}
+
+let root = createTree([1,2,3,4,5])
 console.log(diameterOfBinaryTree(root))
