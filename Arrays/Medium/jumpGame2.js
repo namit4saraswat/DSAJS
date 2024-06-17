@@ -11,7 +11,7 @@ var jump = function(nums) {
         farthest = Math.max(i+nums[i],farthest)
         if(i === currentEnd){
             jumps++
-            currentEnd = farthest
+            currentEnd = farthest   
         }
     }
     return jumps
