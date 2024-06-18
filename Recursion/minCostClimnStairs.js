@@ -1,25 +1,15 @@
-/**
- * @param {number[]} cost
- * @return {number}
- */
+function minCost(arr) {
+    let n=cost.length
+    let ans = 0
+    let dp=Array.from({length: n})
+    dp[0]=cost[0]
+    dp[1]=cost[1]
+    for(let i=2;i<n;i++){
+        dp[i] = cost[i] + Math.min(dp[i-1],dp[i-2])
+    }
 
-var minCostClimbingStairsUtil = function(cost,n,dp) {
-    if(dp[n]){
-        return dp[n]
-    }
-    if(n===1 || n===0){
-        return  0
-    }
-    if(n===2){
-        return Math.min(cost[0],cost[1])
-    }
-    
-    return dp[n] = Math.min(minCostClimbingStairsUtil(cost,n-1,dp) + cost[n-1],minCostClimbingStairsUtil(cost,n-2,dp) + cost[n-2])
-};
+    return Math.min(dp[n-1],dp[n-2])
 
-function minCostClimbingStairs(cost){
-    let dp = Array(1000)
-    return minCostClimbingStairsUtil(cost,cost.length,dp)
 }
 
-console.log(minCostClimbingStairs([0,0,0,0]))
+console.log(minCost([1,100,1,1,1,100,1,1,100,1]))
