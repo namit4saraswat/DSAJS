@@ -1,26 +1,35 @@
 /**
- * @param {number[][]} intervals
- * @return {number[][]}
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
  */
-var merge = function(intervals) {
-    let ans = []
-    intervals = intervals.sort((a, b) => a[0] - b[0]);
-    let idx = -1;
+var search = function(nums, target) {
+    let l=0
+    let r=nums.length-1
 
-    let end = null;
+    let mid = l + Math.floor((r-l)/2)
 
-    for(let i=0;i<intervals.length;i++){
-        if((end == null) || end<intervals[i][0]){
-            ans.push([intervals[i][0],intervals[i][1]])
-            end = intervals[i][1]
-            idx++
+    while(l<=r){
+        let mid = l + Math.floor((r-l)/2)
+        if(nums[mid]===target){
+            return mid
+        }
+        if(nums[l]<nums[mid] ){
+            if(nums[mid]>=target && target >= nums[left]){
+                r=mid-1
+            }else{
+                l=mid+1
+            }
+            
         }else{
-            ans[idx][1] = Math.max(intervals[i][1],end)
-            end = Math.max(intervals[i][1], end);
+            if(nums[mid]<=target && target <= nums[right]){
+                l=mid+1
+            }else{
+                r = mid-1
+            }
         }
     }
 
-    return ans
 };
 
-console.log(merge([[2,6],[1,3],[8,10],[15,18]]))
+console.log(search( [6,7,0,1,2,3,4,5],1))
