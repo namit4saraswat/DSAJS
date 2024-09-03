@@ -1,21 +1,24 @@
 /**
- * @param {number[]} height
+ * @param {string} s
  * @return {number}
  */
-var maxArea = function(height) {
-    let l=0
-    let h=height.length-1
-    area = 0
-    while(l<h){
-        area = Math.max(area, Math.min(height[l],height[h]) * (h-l))
-        if(height[l]>height[h]){
-            h--
-        }else{
-            l++
+var lengthOfLongestSubstring = function(s) {
+    let map = new Map()
+    let count=0
+    let ans=0
+    let start=0
+    for(let i=0;i<s.length;i++){
+        if(map.get(s[i])>=start){
+            start=map.get(s[i])+1
         }
+        ans= Math.max(ans,i-start+1)
+        map.set(s[i],i)
+       
+        
+        ans = Math.max(ans,count)
     }
 
-    return area
+    return ans
 };
 
-console.log(maxArea([1,8,6,2,5,4,8,3,7]))
+console.log(lengthOfLongestSubstring('abcabdbb'))
