@@ -1,31 +1,15 @@
 /**
- * @param {number} n
- * @return {boolean}
+ * @param {number[]} nums
+ * @return {number}
  */
-var isHappy = function(n) {
-    function square(num){
-        let out=0
-        while(num>0){
-            out+=Math.pow(num%10,2)
-            num=Math.floor(num/10)
+var findDuplicate = function(nums) {
+    let visited = new Array(nums.length).fill(false)
+    for(let i=0;i<nums.length;i++){
+        if(visited[nums[i]]){
+            return nums[i]
         }
-        return out
+        visited[nums[i]]=true
     }
-    
-    let slow=n
-    let fast=n
-    while(slow!=1 && fast !=1){
-        
-        slow=square(slow)
-        fast=square(square(fast))
-        if(slow===fast){
-            return false
-        }
-    }
-
-    return true
-    
-
 };
 
-console.log(isHappy(19))
+console.log(findDuplicate([1,3,4,2,2]))
