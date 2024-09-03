@@ -1,18 +1,21 @@
-function contiguousArray(nums){
-    let map = new Map()
-    let s=0
-    map.set(s,-1)
-    let ans = 0
-    for(let i=0;i<nums.length;i++){
-        s = nums[i] === 1 ? s -1 : s + 1
-        if(map.get(s) != undefined){
-            ans = Math.max(ans,i-map.get(s))
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+    let l=0
+    let h=height.length-1
+    area = 0
+    while(l<h){
+        area = Math.max(area, Math.min(height[l],height[h]) * (h-l))
+        if(height[l]>height[h]){
+            h--
         }else{
-            map.set(s,i)
+            l++
         }
-        
     }
-    return ans
-}
 
-console.log(contiguousArray([1,0,0]))
+    return area
+};
+
+console.log(maxArea([1,8,6,2,5,4,8,3,7]))
