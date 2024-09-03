@@ -151,7 +151,42 @@ function createTree(nums){
     return root
 }
 
+function createAsLevelOrder(nums){
+    let root = new Node(nums[0])
+    let curr
+    let q = []
+    let i=0
+    q.push(root)
+    while(q.length>0 & i<nums.length){
+        let size = q.length
+        while(size>0){
+            curr = q.shift()
+            i++
+            if(i>nums.length-1){
+                return root
+            }
+            if(nums[i]!=null){
+                curr.left = new Node(nums[i])
+                q.push(curr.left)
+            }
+            
+            i++
+            if(i>nums.length-1){
+                return root
+            }
+            if(nums[i]!=null){
+                curr.right = new Node(nums[i])
+                q.push(curr.right)
+            }
+            
+            size--
+        }
+    }
+
+    return root
+}
+
 let root = createTree([1,2,3,4,5,6,7,8])
 
 
-module.exports = {createTree}
+module.exports = {createTree,createAsLevelOrder}
