@@ -1,21 +1,11 @@
-/**
- * @param {number[]} temperatures
- * @return {number[]}
- */
-var dailyTemperatures = function(temperatures) {
-    let st = []
-    st.push(temperatures[0])
-   
-    let ans = new Array(temperatures.length).fill(0)
-    for(let i=0;i<temperatures.length;i++){
-        while(st.length>0 && st[st.length-1].val<temperatures[i]){
-            let index = st.pop().idx
-            ans[index] = i - index 
-        }
-        st.push({val: temperatures[i], idx: i})
+var findKthLargest = function(nums, k) {
+    const minPriQue = new MinPriorityQueue();
+    for(let i = 0; i < nums.length; i++){
+        minPriQue.enqueue(nums[i]);
+        if(minPriQue.size() > k){
+                minPriQue.dequeue();
+            }
     }
 
-    return ans
+    return minPriQue.front().element
 };
-
-console.log(dailyTemperatures([30]))
