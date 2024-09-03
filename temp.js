@@ -9,9 +9,9 @@ var findMin = function(nums) {
     while(l<r){
         let mid=Math.floor((r+l)/2)
         if(nums[mid]<nums[r]){
-            right = mid
+            r = mid
         }else{
-            left = mid+1
+            l = mid+1
         }
     }
     return nums[l];
