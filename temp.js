@@ -1,23 +1,24 @@
+const  {getRootNode, printList} =  require ("./LinkedList/createLLFromArr")
+
 /**
- * @param {string} s
- * @param {string} t
- * @return {string}
+ * @param {ListNode} head
+ * @return {boolean}
  */
-var minWindow = function(s, t) {
-    let t_map = new Map()
-    for(let i=0;i<t.length;i++){
-        t_map.set(s[i],-1)
-    }
-    let start=0
-    for(let i=0;i<s.length;i++){
-        if(t_map.get(s[i]===-1)){
-            t_map.set(s[i],i) 
-        }else if(t_map.get(s[i]>=0)){
-            
+var hasCycle = function(head) {
+    let slow=head
+    let fast=head
+    while(fast.next){
+        slow=slow.next
+        fast=fast.next.next
+        if(slow===fast){
+            return true
         }
     }
+
+    return false
 };
 
-console.log(minWindow("ADOBECODEBANC","ABC"))
+const root = getRootNode([1,2,3,4,5,6,7,8,9,10])
 
-//uncomplete solution
+console.log(hasCycle(root))
+
