@@ -1,19 +1,18 @@
-function moveAZeroes(nums){
-    let j=0;
+function contiguousArray(nums){
+    let map = new Map()
+    let s=0
+    map.set(s,-1)
+    let ans = 0
     for(let i=0;i<nums.length;i++){
-        if(nums[i]!=0){
-            nums[j]=nums[i]
-            j++
+        s = nums[i] === 1 ? s -1 : s + 1
+        if(map.get(s) != undefined){
+            ans = Math.max(ans,i-map.get(s))
+        }else{
+            map.set(s,i)
         }
         
     }
-
-    while(j<nums.length){
-        nums[j]=0
-        j++
-    }
-
-    console.log(nums)
+    return ans
 }
 
-moveAZeroes([0,1,0,3,12])
+console.log(contiguousArray([1,0,0]))
