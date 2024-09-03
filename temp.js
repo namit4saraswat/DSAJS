@@ -1,15 +1,23 @@
+const  {getRootNode, printList} =  require ("./LinkedList/createLLFromArr")
 /**
- * @param {number[]} nums
- * @return {number}
+ * @param {ListNode} head
+ * @return {ListNode}
  */
-var findDuplicate = function(nums) {
-    let visited = new Array(nums.length).fill(false)
-    for(let i=0;i<nums.length;i++){
-        if(visited[nums[i]]){
-            return nums[i]
-        }
-        visited[nums[i]]=true
+var reverseList = function(head) {
+    let prev = null
+    let curr = head
+    let ahead = head.next
+    while(ahead){
+        curr.next = prev
+        prev = curr
+        curr = ahead
+        ahead = ahead.next
     }
+    curr.next=prev
+    return curr
 };
 
-console.log(findDuplicate([1,3,4,2,2]))
+
+const root = getRootNode([1,2,3,4,5,6,7,8,9,10])
+let head = reverseList(root)
+console.log(printList(head))
