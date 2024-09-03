@@ -1,24 +1,23 @@
 /**
  * @param {string} s
- * @return {number}
+ * @param {string} t
+ * @return {string}
  */
-var lengthOfLongestSubstring = function(s) {
-    let map = new Map()
-    let count=0
-    let ans=0
+var minWindow = function(s, t) {
+    let t_map = new Map()
+    for(let i=0;i<t.length;i++){
+        t_map.set(s[i],-1)
+    }
     let start=0
     for(let i=0;i<s.length;i++){
-        if(map.get(s[i])>=start){
-            start=map.get(s[i])+1
+        if(t_map.get(s[i]===-1)){
+            t_map.set(s[i],i) 
+        }else if(t_map.get(s[i]>=0)){
+            
         }
-        ans= Math.max(ans,i-start+1)
-        map.set(s[i],i)
-       
-        
-        ans = Math.max(ans,count)
     }
-
-    return ans
 };
 
-console.log(lengthOfLongestSubstring('abcabdbb'))
+console.log(minWindow("ADOBECODEBANC","ABC"))
+
+//uncomplete solution
