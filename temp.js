@@ -6,15 +6,14 @@ const  {getRootNode, printList} =  require ("./LinkedList/createLLFromArr")
 var reverseList = function(head) {
     let prev = null
     let curr = head
-    let ahead = head.next
-    while(ahead){
+    let ahead = head
+    while(curr){
+        ahead = ahead.next
         curr.next = prev
         prev = curr
         curr = ahead
-        ahead = ahead.next
     }
-    curr.next=prev
-    return curr
+    return prev
 };
 
 
