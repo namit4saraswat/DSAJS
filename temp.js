@@ -1,27 +1,44 @@
 /**
- * @param {number[][]} matrix
- * @param {number} target
- * @return {boolean}
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
  */
-var searchMatrix = function(matrix, target) {
-    let l=0
-    let row=matrix.length
-    let col=matrix[0].length
-    let r=row * col-1
-    while(l<=r){
-        let mid = l + Math.floor((r-l)/2)
-        let midRow = Math.floor(mid/col)
-        let midCol =mid%col
-        if(matrix[midRow][midCol]===target){
-            return true
-        } else if(matrix[midRow][midCol]>target){
-            r= mid-1
-        }else{
-            l=mid+1
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+
+const  {createTree} =  require ("./BinaryTree/createTreeFromArray")
+const  {createAsLevelOrder} =  require ("./BinaryTree/createTreeFromArray")
+
+
+
+var binaryTreePaths = function(root) {
+    const paths = [];
+    
+    function findPaths(node, array){
+        if(!node){
+            return
         }
+    
+        array.push(node.data)
+
+        if(!node.left && !node.right){
+            paths.push(array)
+        }else{
+            findPaths(node.left,[...array])
+            findPaths(node.right,[...array])
+        }
+    
+        
     }
 
-    return false
+    findPaths(root, []);
+    return paths;
 };
 
-console.log(searchMatrix([[1,3,5,7],[10,11,16,20],[23,30,34,60]],3))
+let root2 = createAsLevelOrder([1,2,3,null,5])
+console.log(binaryTreePaths(root2))
