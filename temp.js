@@ -1,36 +1,24 @@
 const  {getRootNode, printList} =  require ("./LinkedList/createLLFromArr")
 
-var reverseBetween = function(head, left, right) {
-    if(head == null || head.next == null){
-        return head
+
+
+var swapPairs = function(head) {
+    let one = head
+    let two = head.next
+    let newHead = head.next
+    let prevPair = null
+    while(two){
+        let three = two.next
+        two.next = one
+        one.next = three
+        prevPair = one
+        two = three.next
+        one = three
+        prevPair.next = two
     }
-    let prev = null
-    let curr= head
-    let ahead = head
-    let count = 1
-    last = curr
-    first = ahead
-    while(curr && count <= right){
-        if(count >=left){
-            ahead = ahead.next
-            curr.next = prev
-            prev = curr
-            curr = ahead
-        }else{
-            last = curr
-            prev = curr
-            curr = curr.next
-            ahead = ahead.next
-            first = ahead
-        }
-        count++
-        
-    }
-    last.next = prev
-    first.next = curr
-    return left===1 ? prev : head
+    return newHead
 };
 
-const root = getRootNode([5,6])
-let head = reverseBetween(root,1,2)
+const root = getRootNode([1,3,5,7,9])
+let head = swapPairs(root)
 console.log(printList(head))
