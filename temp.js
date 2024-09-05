@@ -8,37 +8,36 @@
  */
 /**
  * @param {TreeNode} root
- * @return {string[]}
+ * @param {number} targetSum
+ * @return {number[][]}
  */
 
-const  {createTree} =  require ("./BinaryTree/createTreeFromArray")
 const  {createAsLevelOrder} =  require ("./BinaryTree/createTreeFromArray")
-
-
-
-var binaryTreePaths = function(root) {
-    const paths = [];
-    
-    function findPaths(node, array){
+var pathSum = function(root, targetSum) {
+    let ans= new Array()
+    let out = new Array()
+    function pathSumUtil(node,target,rSum,ans,out){
         if(!node){
             return
-        }
-    
-        array.push(node.data)
-
-        if(!node.left && !node.right){
-            paths.push(array)
         }else{
-            findPaths(node.left,[...array])
-            findPaths(node.right,[...array])
+            rSum = rSum + node.data
+            ans.push(node.data)
+            if(!node.left && !node.right && rSum === target ){
+                out.push([...ans])
+            }
+            
         }
-    
-        
+
+        pathSumUtil(node.left,target,rSum,ans,out)
+        pathSumUtil(node.right,target,rSum,ans,out)
+        ans.pop()
+        // return out
     }
 
-    findPaths(root, []);
-    return paths;
+    pathSumUtil(root,targetSum,0,ans,out)
+    return out
 };
 
-let root2 = createAsLevelOrder([1,2,3,null,5])
-console.log(binaryTreePaths(root2))
+let root =createAsLevelOrder([5,4,8,11,null,13,4,7,2,null,null,5,1])
+console.log(pathSum(root,22))
+
