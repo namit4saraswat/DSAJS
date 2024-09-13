@@ -1,43 +1,44 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {number} targetSum
- * @return {number[][]}
- */
+// /**
+//  * @param {character[][]} grid
+//  * @return {number}
+//  */
+var numIslands = function(grid) {
+    let r = [-1,0,1,0]
+    let c = [0,1,0,-1]
+    let ans=0
+    function isValid(i,j){
+        if(i>=0 && i<grid.length && j>=0 && j<grid[0].length && grid[i][j]==='1' && grid[i][j]!='2'){
+            grid[i][j]='2'
+            return true
+        }
+    }
 
-const  {createAsLevelOrder} =  require ("./BinaryTree/createTreeFromArray")
-var pathSum = function(root, targetSum) {
-    let ans= new Array()
-    let out = new Array()
-    function pathSumUtil(node,target,rSum,ans,out){
-        if(!node){
-            return
-        }else{
-            rSum = rSum + node.data
-            ans.push(node.data)
-            if(!node.left && !node.right && rSum === target ){
-                out.push([...ans])
+    function dfs(i ,j){
+        if(isValid(i,j)){
+            for(let k=0;k<r.length;k++){
+                dfs(i+r[k],j+c[k])
             }
             
         }
+        
+    }
+    
+    for(let i=0;i<grid.length;i++){
+        for(let j=0;j<grid[0].length;j++){
+            if(grid[i][j]==='1'){
+                ans++
+                dfs(i,j)
+            }
+        }
 
-        pathSumUtil(node.left,target,rSum,ans,out)
-        pathSumUtil(node.right,target,rSum,ans,out)
-        ans.pop()
-        // return out
     }
 
-    pathSumUtil(root,targetSum,0,ans,out)
-    return out
+    return ans
 };
 
-let root =createAsLevelOrder([5,4,8,11,null,13,4,7,2,null,null,5,1])
-console.log(pathSum(root,22))
-
+console.log(numIslands([
+    ["1","1","1","1","0"],
+    ["1","1","0","1","0"],
+    ["1","1","0","0","0"],
+    ["0","0","0","0","0"]
+  ]))
